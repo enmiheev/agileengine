@@ -1,0 +1,64 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "error"
+  ],
+  "properties": {
+    "error": {
+      "$id": "#/properties/error",
+      "type": "object",
+      "title": "The Error Schema",
+      "required": [
+        "message",
+        "type",
+        "code",
+        "fbtrace_id"
+      ],
+      "properties": {
+        "message": {
+          "$id": "#/properties/error/properties/message",
+          "type": "string",
+          "title": "The Message Schema",
+          "default": "",
+          "examples": [
+            "(#10) Object does not exist, cannot be loaded due to missing reviewable feature 'Page Public Content Access', or does not support this operation. To use 'Page Public Content Access', your use of this endpoint must be reviewed and approved by Facebook. To submit this 'Page Public Content Access' feature for review please read our documentation on reviewable features: https://developers.facebook.com/docs/apps/review."
+          ],
+          "pattern": "^(.*)$"
+        },
+        "type": {
+          "$id": "#/properties/error/properties/type",
+          "type": "string",
+          "title": "The Type Schema",
+          "default": "",
+          "examples": [
+            "OAuthException"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "code": {
+          "$id": "#/properties/error/properties/code",
+          "type": "integer",
+          "title": "The Code Schema",
+          "default": 0,
+          "examples": [
+            10
+          ]
+        },
+        "fbtrace_id": {
+          "$id": "#/properties/error/properties/fbtrace_id",
+          "type": "string",
+          "title": "The Fbtrace_id Schema",
+          "default": "",
+          "examples": [
+            "EaWZ+IAkEc9"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    }
+  }
+}
