@@ -2,6 +2,8 @@ package UITtest;
 
 import Pages.HomePage;
 import Pages.LoginPage;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,10 +15,11 @@ import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 
 public class UIBaseTest {
     private ChromeOptions options = new ChromeOptions();
+    private String chromeDriverPath = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "WebDrivers" + File.separator + "chromedriver";
+    protected HomePage homePage;
 
     @BeforeSuite
     protected void oneTimeSetUp() {
-        String chromeDriverPath = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "WebDrivers" + File.separator + "chromedriver";
         if (System.getProperty("os.name").toLowerCase().contains("windows"))
             System.setProperty("webdriver.chrome.driver", chromeDriverPath + ".exe");
 
@@ -32,6 +35,7 @@ public class UIBaseTest {
     protected void setUp() {
         WebDriver webDriver = new ChromeDriver(options);
         setWebDriver(webDriver);
+        homePage = new HomePage();
     }
 
     @AfterMethod
@@ -39,19 +43,34 @@ public class UIBaseTest {
         getWebDriver().quit();
     }
 
-    protected void logIn(String email, String password){
-        LoginPage loginPage = new LoginPage();
-        loginPage.go();
-        loginPage.enterEmail(email);
-        loginPage.enterPassword(password);
-        loginPage.clickLogIn();
+    protected HomePage logIn(String email, String password){
+        return new LoginPage().go()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickLogIn();
     }
 
-    protected void addPost(String postText){
-        HomePage homePage = new HomePage();
-        homePage.openPostPopUp();
-        homePage.getNewPostPopUp().enterPostText(postText);
-        homePage.getNewPostPopUp().clickPostBtn();
-        homePage.getNewsFeed().waitProgressLineDisappear();
+    protected HomePage addPost(String postText){
+        return homePage.openPostPopUp()
+                .enterPostText(postText)
+                .clickPostBtn()
+                .waitProgressLineDisappear();
+    }
+
+    protected HomePage editPost(String searchPosttext, String editPostText){
+        SelenideElement post = homePage.getNewsFeed().getPostsCollection().find(Condition.text(searchPosttext));
+        return homePage.getNewsFeed()
+                .openPostMenu(post)
+                .clickEditPostBtn()
+                .enterPostText(editPostText)
+                .clickSaveBtn();
+    }
+
+    protected HomePage deletePost(String postText) {
+        SelenideElement post = homePage.getNewsFeed().getPostsCollection().find(Condition.text(postText));
+        return homePage.getNewsFeed()
+                .openPostMenu(post)
+                .clickDeletePostBtn()
+                .clickDeleteBtn();
     }
 }

@@ -1,5 +1,6 @@
 package Pages.Components;
 
+import Pages.HomePage;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -14,40 +15,43 @@ import static com.codeborne.selenide.Selectors.byAttribute;
 import static com.codeborne.selenide.Selectors.byCssSelector;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 
 public class NewsFeedComponent {
-    private SelenideElement newsFeed = $(byAttribute("data-testid","newsFeedStream"));
-    private SelenideElement progressLine = newsFeed.$(byText("Uploading..."));
-    private ElementsCollection postsCollection = newsFeed.$$(byCssSelector("div .userContentWrapper"));
-    private By postMenuBtn = byAttribute("data-testid", "post_chevron_button");
-    private SelenideElement editPostBtn = $(byAttribute("data-feed-option-name","FeedEditOption"));
-    private SelenideElement deletePostBtn = $(byAttribute("data-feed-option-name","FeedDeleteOption"));
 
     public ElementsCollection getPostsCollection() {
-        return postsCollection;
+        return getNewsFeed().$$(byCssSelector("div .userContentWrapper"));
     }
 
-    public List<String> getPostsTextCollection() {
-        List<String>  postsTextList  = new ArrayList<>();
-        postsCollection.forEach(x -> postsTextList.add(x.$(By.tagName("p")).text()));
-        return postsTextList;
+    public SelenideElement getNewsFeed() {
+        return $(byAttribute("data-testid","newsFeedStream"));
     }
 
-    public void waitProgressLineDisappear() {
+    public HomePage waitProgressLineDisappear() {
+        SelenideElement progressLine = getNewsFeed().$(byText("Uploading..."));
         progressLine.waitUntil(appear, 2000);
         progressLine.waitUntil(disappear, 5000);
         Selenide.refresh();
+        return page(HomePage.class);
     }
 
-    public void openPostMenu(SelenideElement postElement) {
-        postElement.$(postMenuBtn).click();
+    public NewsFeedComponent openPostMenu(SelenideElement postElement) {
+        postElement.$(byAttribute("data-testid", "post_chevron_button"))
+                .click();
+        return this;
     }
 
-    public void clickEditPostBtn() {
-        editPostBtn.waitUntil(appear, 3000).click();
+    public EditPostPopUpComponent clickEditPostBtn() {
+        $(byAttribute("data-feed-option-name","FeedEditOption"))
+                .waitUntil(appear, 3000)
+                .click();
+        return page(EditPostPopUpComponent.class);
     }
 
-    public void clickDeletePostBtn() {
-        deletePostBtn.waitUntil(appear, 3000).click();
+    public DeletePostPopUpComponent clickDeletePostBtn() {
+        $(byAttribute("data-feed-option-name","FeedDeleteOption"))
+                .waitUntil(appear, 3000)
+                .click();
+        return page(DeletePostPopUpComponent.class);
     }
 }
