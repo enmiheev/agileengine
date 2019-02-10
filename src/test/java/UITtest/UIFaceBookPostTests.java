@@ -17,15 +17,15 @@ public class UIFaceBookPostTests extends UIBaseTest {
         HomePage homePage = new HomePage();
 
         logIn(Environment.getUserEmail(), Environment.getUserPassword());
-        homePage.OpenPostPopUp();
-        homePage.GetNewPostPopUp().EnterPostText(postText);
-        homePage.GetNewPostPopUp().CliCkPostBtn();
-        homePage.GetNewsFeed().WaitProgressLineDisappear();
+        homePage.openPostPopUp();
+        homePage.getNewPostPopUp().enterPostText(postText);
+        homePage.getNewPostPopUp().clickPostBtn();
+        homePage.getNewsFeed().waitProgressLineDisappear();
 
-        homePage.GetNewsFeed().GetPostsCollection().first().shouldHave(text(postText));
+        homePage.getNewsFeed().getPostsCollection().first().shouldHave(text(postText));
 
         Assert.assertEquals(
-                homePage.GetNewsFeed().GetPostsTextCollection().get(0),
+                homePage.getNewsFeed().getPostsTextCollection().get(0),
                 postText,
                 "Post text isn't created");
     }
@@ -39,14 +39,14 @@ public class UIFaceBookPostTests extends UIBaseTest {
         logIn(Environment.getUserEmail(), Environment.getUserPassword());
         addPost(savePostText);
 
-        SelenideElement post = homePage.GetNewsFeed().GetPostsCollection().first();
-        homePage.GetNewsFeed().OpenPostMenu(post);
-        homePage.GetNewsFeed().ClickEditPostBtn();
-        homePage.GetEditPostPopUp().EnterPostText(editPostText);
-        homePage.GetEditPostPopUp().ClickSaveBtn();
+        SelenideElement post = homePage.getNewsFeed().getPostsCollection().first();
+        homePage.getNewsFeed().openPostMenu(post);
+        homePage.getNewsFeed().clickEditPostBtn();
+        homePage.getEditPostPopUp().enterPostText(editPostText);
+        homePage.getEditPostPopUp().clickSaveBtn();
 
         Assert.assertEquals(
-                homePage.GetNewsFeed().GetPostsTextCollection().get(0),
+                homePage.getNewsFeed().getPostsTextCollection().get(0),
                 savePostText + editPostText,
                 "Post text isn't edited");
     }
@@ -59,20 +59,20 @@ public class UIFaceBookPostTests extends UIBaseTest {
         logIn(Environment.getUserEmail(), Environment.getUserPassword());
         addPost(postText);
 
-        ElementsCollection postCollection = homePage.GetNewsFeed().GetPostsCollection();
+        ElementsCollection postCollection = homePage.getNewsFeed().getPostsCollection();
         int expectedNumberOfPosts = postCollection.size() - 1;
         SelenideElement post = postCollection.first();
-        homePage.GetNewsFeed().OpenPostMenu(post);
-        homePage.GetNewsFeed().ClickDeletePostBtn();
-        homePage.GetDeletePostPopUp().ClickDeleteBtn();
+        homePage.getNewsFeed().openPostMenu(post);
+        homePage.getNewsFeed().clickDeletePostBtn();
+        homePage.getDeletePostPopUp().clickDeleteBtn();
 
         Assert.assertEquals(
-                homePage.GetNewsFeed().GetPostsCollection().size(),
+                homePage.getNewsFeed().getPostsCollection().size(),
                 expectedNumberOfPosts,
                 "News feed contains wrong number of posts");
 
         Assert.assertFalse(
-                homePage.GetNewsFeed().GetPostsTextCollection().contains(postText),
+                homePage.getNewsFeed().getPostsTextCollection().contains(postText),
                 "Post isn't deleted");
     }
 }

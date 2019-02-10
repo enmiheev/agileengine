@@ -9,11 +9,11 @@ public class NewPostPopUpComponent {
     private SelenideElement postField = $(byAttribute("data-testid","status-attachment-mentions-input"));
     private SelenideElement postBtn = $(byAttribute("data-testid","react-composer-post-button"));
 
-    public void EnterPostText(String text) {
+    public void enterPostText(String text) {
         postField.setValue(text);
     }
 
-    public void CliCkPostBtn() {
+    public void clickPostBtn() {
         postBtn.click();
     }
 }

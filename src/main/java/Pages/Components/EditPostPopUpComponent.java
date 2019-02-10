@@ -11,13 +11,13 @@ public class EditPostPopUpComponent {
     private SelenideElement postField = $(byAttribute("data-testid","status-attachment-mentions-input"));
     private SelenideElement saveBtn = $(byAttribute("data-testid","react-composer-post-button"));
 
-    public void EnterPostText(String text) {
+    public void enterPostText(String text) {
         postField.waitUntil(appear, 5000);
         postField.clear();
         postField.setValue(text);
     }
 
-    public void ClickSaveBtn() {
+    public void clickSaveBtn() {
         saveBtn.click();
         saveBtn.waitUntil(disappear, 2000);
     }

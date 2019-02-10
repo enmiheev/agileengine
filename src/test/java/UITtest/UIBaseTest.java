@@ -41,17 +41,17 @@ public class UIBaseTest {
 
     protected void logIn(String email, String password){
         LoginPage loginPage = new LoginPage();
-        loginPage.Go();
-        loginPage.EnterEmail(email);
-        loginPage.EnterPassword(password);
-        loginPage.ClickLogIn();
+        loginPage.go();
+        loginPage.enterEmail(email);
+        loginPage.enterPassword(password);
+        loginPage.clickLogIn();
     }
 
     protected void addPost(String postText){
         HomePage homePage = new HomePage();
-        homePage.OpenPostPopUp();
-        homePage.GetNewPostPopUp().EnterPostText(postText);
-        homePage.GetNewPostPopUp().CliCkPostBtn();
-        homePage.GetNewsFeed().WaitProgressLineDisappear();
+        homePage.openPostPopUp();
+        homePage.getNewPostPopUp().enterPostText(postText);
+        homePage.getNewPostPopUp().clickPostBtn();
+        homePage.getNewsFeed().waitProgressLineDisappear();
     }
 }

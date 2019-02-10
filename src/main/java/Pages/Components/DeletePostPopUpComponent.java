@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class DeletePostPopUpComponent {
     private SelenideElement deleteBtn = $(byCssSelector("button.layerConfirm.uiOverlayButton"));
 
-    public void ClickDeleteBtn(){
+    public void clickDeleteBtn(){
         deleteBtn.click();
         deleteBtn.waitUntil(disappear, 10000);
     }

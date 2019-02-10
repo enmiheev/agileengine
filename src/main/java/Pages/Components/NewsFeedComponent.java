@@ -23,31 +23,31 @@ public class NewsFeedComponent {
     private SelenideElement editPostBtn = $(byAttribute("data-feed-option-name","FeedEditOption"));
     private SelenideElement deletePostBtn = $(byAttribute("data-feed-option-name","FeedDeleteOption"));
 
-    public ElementsCollection GetPostsCollection() {
+    public ElementsCollection getPostsCollection() {
         return postsCollection;
     }
 
-    public List<String> GetPostsTextCollection() {
+    public List<String> getPostsTextCollection() {
         List<String>  postsTextList  = new ArrayList<>();
         postsCollection.forEach(x -> postsTextList.add(x.$(By.tagName("p")).text()));
         return postsTextList;
     }
 
-    public void WaitProgressLineDisappear() {
+    public void waitProgressLineDisappear() {
         progressLine.waitUntil(appear, 2000);
         progressLine.waitUntil(disappear, 5000);
         Selenide.refresh();
     }
 
-    public void OpenPostMenu(SelenideElement postElement) {
+    public void openPostMenu(SelenideElement postElement) {
         postElement.$(postMenuBtn).click();
     }
 
-    public void ClickEditPostBtn() {
+    public void clickEditPostBtn() {
         editPostBtn.waitUntil(appear, 3000).click();
     }
 
-    public void ClickDeletePostBtn() {
+    public void clickDeletePostBtn() {
         deletePostBtn.waitUntil(appear, 3000).click();
     }
 }

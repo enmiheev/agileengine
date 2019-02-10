@@ -16,23 +16,23 @@ public class HomePage {
     private DeletePostPopUpComponent deletePostPopUpComponent = new DeletePostPopUpComponent();
     private SelenideElement newPostPopUp = $(byId("pagelet_composer"));
 
-    public NewPostPopUpComponent GetNewPostPopUp() {
+    public NewPostPopUpComponent getNewPostPopUp() {
         return newPostPopUpComponent;
     }
 
-    public NewsFeedComponent GetNewsFeed() {
+    public NewsFeedComponent getNewsFeed() {
         return newsFeedComponent;
     }
 
-    public EditPostPopUpComponent GetEditPostPopUp() {
+    public EditPostPopUpComponent getEditPostPopUp() {
         return editPostPopUpComponent;
     }
 
-    public DeletePostPopUpComponent GetDeletePostPopUp() {
+    public DeletePostPopUpComponent getDeletePostPopUp() {
         return deletePostPopUpComponent;
     }
 
-    public void OpenPostPopUp() {
+    public void openPostPopUp() {
         newPostPopUp.click();
     }
 }

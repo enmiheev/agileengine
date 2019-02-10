@@ -10,19 +10,19 @@ public class LoginPage {
     private SelenideElement passwordField = $(byAttribute("data-testid","royal_pass"));
     private SelenideElement logInBtn = $(byAttribute("data-testid","royal_login_button"));
 
-    public void Go() {
+    public void go() {
         open("https://www.facebook.com/");
     }
 
-    public void EnterEmail(String email) {
+    public void enterEmail(String email) {
         emailField.setValue(email);
     }
 
-    public void EnterPassword(String pwd) {
+    public void enterPassword(String pwd) {
         passwordField.setValue(pwd);
     }
 
-    public void ClickLogIn() {
+    public void clickLogIn() {
         logInBtn.click();
     }
 }
